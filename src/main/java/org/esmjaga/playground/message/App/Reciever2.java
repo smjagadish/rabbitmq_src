@@ -43,6 +43,8 @@ public class Reciever2 {
             boolean autoAck = false;
             channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback, consumerTag -> { });
             //No ack sent back, so the messages will be re-delivered when the consumer restarts (assuming restart is less than 30 mins from the time of message getting stored in the queue)
+            // below is cons from topic exchange
+            channel.basicConsume("topic_q1", autoAck, deliverCallback, consumerTag -> { });
 
         }
         catch(Exception e)
@@ -51,11 +53,11 @@ public class Reciever2 {
         }
     }
     // The below method illustrates use of exclusive queues
-    // 'channel' used in Sender.java which is used to create the ex.queue is used here
+    // 'channel2' used in Sender.java which is used to create the ex.queue is used here
     // any other channel wont be able to consume (or) write  from/to this queue
     public void del()
     {
-        Channel ch = snd.channel;
+        Channel ch = snd.channel2;
         try{
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
@@ -63,8 +65,8 @@ public class Reciever2 {
             };
             // turning on explicit ack
             boolean autoAck = true;
-            ch.basicConsume("", autoAck, deliverCallback, consumerTag -> { });
-            //No ack sent back, so the messages will be re-delivered when the consumer restarts (assuming restart is less than 30 mins from the time of message getting stored in the queue)
+            //Using the defaultconsumer inplace of deliver callback
+            ch.basicConsume(snd.trans_q, autoAck, new MessageConsumer(ch));
 
         }
         catch(Exception e)

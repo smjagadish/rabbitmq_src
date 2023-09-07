@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 public class Reciever {
@@ -46,7 +48,13 @@ public class Reciever {
             };
             //turning on explicit ack
             boolean autoAck = false;
-            channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback, consumerTag -> { });
+            // i'm making this consumer as the highest prio consumer
+            // as long this cons is not blocked , it will be preferred instead of R2 (since R2 doesnt have prio set)
+            // the prio doesnt depend on the underlying channel , so r1 and r2 can use same channel or diff channel
+            Map<String,Object> map = new HashMap<>();
+            map.put("x-priority",10);
+            channel.basicConsume("topic_q1", autoAck, map, deliverCallback, consumerTag -> { });
+            channel.basicConsume(QUEUE_NAME, autoAck,  deliverCallback, consumerTag -> { });
             //No ack sent back, so the messages will be re-delivered when the consumer restarts (assuming restart is less than 30 mins from the time of message getting stored in the queue)
 
         }

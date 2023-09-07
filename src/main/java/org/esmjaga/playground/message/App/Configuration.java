@@ -3,6 +3,7 @@ package org.esmjaga.playground.message.App;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DnsRecordIpAddressResolver;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.context.properties.bind.Name;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,12 @@ public class Configuration {
     public Connection getConnection(ConnectionFactory cf) throws IOException, TimeoutException {
         // also possible to set username,password
         cf.setHost("localhost");
+        // use these only when running in cluster mode
+        cf.setUsername("admin");
+        cf.setPassword("admin");
+        // using an in-built dnsresolver . will this do loadbalancing ??
         return cf.newConnection();
+
     }
     @Bean
     public ConnectionFactory getCF()
@@ -50,4 +56,12 @@ public class Configuration {
     {
         return new NackSender();
     }
+
+    @Bean
+    public quorumSender quorumSender()
+    {
+        return new quorumSender();
+    }
+    @Bean
+    public quorumReciever quorumReciever() {return new quorumReciever();}
 }

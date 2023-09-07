@@ -37,7 +37,7 @@ public class NackSender {
     public void send() {
         try {
             logger.info("publishing to an unnamed queue tied to the fanout exchange . wont work until any queue isn't bound to the exch");
-            for(int i=0;i<100;i++)
+            for(int i=0;i<1;i++)
             {
                 ch.basicPublish("nackEx", "", null, new String("Wont get through").getBytes());
                 Thread.sleep(10000);

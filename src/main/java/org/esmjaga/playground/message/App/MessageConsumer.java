@@ -19,5 +19,14 @@ public class MessageConsumer extends DefaultConsumer {
     public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
         String st = new String(body,"UTF-8");
         logger.info("message consumed with data:"+st);
+        long tag = envelope.getDeliveryTag();
+        //ack'ing each message one at a time
+        //if i do true, then it'll be multi-ack
+        getChannel().basicAck(tag,false);
+    }
+
+    @Override
+    public void handleCancel(String consumerTag) throws IOException {
+        super.handleCancel(consumerTag);
     }
 }
