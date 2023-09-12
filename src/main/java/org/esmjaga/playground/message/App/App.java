@@ -27,6 +27,8 @@ public class App {
     ctx.getBean(Sender.class).send("hello");
     ctx.getBean(NackSender.class).initialize();
     ctx.getBean(NackSender.class).send();
+    ctx.getBean(ReplyToSender.class).initialize();
+    ctx.getBean(ReplyToSender.class).send();
     ctx.getBean(quorumSender.class).initialize();
     ctx.getBean(quorumSender.class).send();
     ctx.getBean(Reciever.class).initialize();
@@ -37,6 +39,9 @@ public class App {
     ctx.getBean(quorumReciever.class).recieve();
     // demonstrate exclusive queue
     ctx.getBean(Reciever2.class).del();
+    // rpc replier
+    ctx.getBean(ReplyToReciever.class).initialize();
+    ctx.getBean(ReplyToReciever.class).recieve();
 
   }
 

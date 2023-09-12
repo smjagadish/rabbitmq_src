@@ -56,6 +56,7 @@ public class Reciever {
             channel.basicConsume("topic_q1", autoAck, map, deliverCallback, consumerTag -> { });
             channel.basicConsume(QUEUE_NAME, autoAck,  deliverCallback, consumerTag -> { });
             //No ack sent back, so the messages will be re-delivered when the consumer restarts (assuming restart is less than 30 mins from the time of message getting stored in the queue)
+            System.out.println("this is a test msg to check if basic consume blocks");
 
         }
         catch(Exception e)

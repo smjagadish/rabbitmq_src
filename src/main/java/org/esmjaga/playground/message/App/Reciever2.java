@@ -68,6 +68,7 @@ public class Reciever2 {
             //Using the defaultconsumer inplace of deliver callback
             ch.basicConsume(snd.trans_q, autoAck, new MessageConsumer(ch));
 
+
         }
         catch(Exception e)
         {

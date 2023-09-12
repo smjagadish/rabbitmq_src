@@ -64,4 +64,8 @@ public class Configuration {
     }
     @Bean
     public quorumReciever quorumReciever() {return new quorumReciever();}
+    @Bean
+    public ReplyToSender replyToSender() { return new ReplyToSender();}
+    @Bean
+    public ReplyToReciever replyToReciever() { return new ReplyToReciever();}
 }
