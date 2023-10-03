@@ -4,6 +4,7 @@ import com.rabbitmq.client.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class NackSender {
     @Autowired
+    @Qualifier("localconn")
     private Connection connection;
     private Channel ch;
 

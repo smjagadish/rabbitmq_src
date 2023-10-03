@@ -4,6 +4,7 @@ import com.rabbitmq.client.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class ReplyToSender {
 
     private Logger logger = LoggerFactory.getLogger(ReplyToSender.class);
     @Autowired
+    @Qualifier("localconn")
     Connection connection;
     Channel channel;
     final String cid ;

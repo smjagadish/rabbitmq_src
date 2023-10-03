@@ -5,6 +5,7 @@ import com.rabbitmq.client.impl.AMQBasicProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class Sender {
      Channel channel;
      Channel channel2;
     @Autowired
+    @Qualifier("localconn")
     Connection connection;
      String trans_q;
     Sender() {

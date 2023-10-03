@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class Reciever {
     //private ConnectionFactory factory;
     //private Connection connection;
     @Autowired
+    @Qualifier("localconn")
     Connection connection;
     private Channel channel;
     private String cons_tag;

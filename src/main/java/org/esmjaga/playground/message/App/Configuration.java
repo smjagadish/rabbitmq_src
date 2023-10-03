@@ -34,7 +34,7 @@ public class Configuration {
         return new Reciever2();
     }
 
-    @Bean
+    @Bean(name="localconn")
     public Connection getConnection(ConnectionFactory cf) throws IOException, TimeoutException {
         // also possible to set username,password
         cf.setHost("localhost");
@@ -68,4 +68,17 @@ public class Configuration {
     public ReplyToSender replyToSender() { return new ReplyToSender();}
     @Bean
     public ReplyToReciever replyToReciever() { return new ReplyToReciever();}
+
+    @Bean(name="remoteconn")
+    public Connection getAzureConnection(ConnectionFactory cf) throws IOException , TimeoutException {
+        cf.setHost("esmjaga-rmq.canadacentral.cloudapp.azure.com");
+        cf.setUsername("rmqadmin");
+        cf.setPassword("rmqadmin");
+        return cf.newConnection();
+    }
+    @Bean
+    public AzureSender azsender()
+    {
+        return new AzureSender();
+    }
 }

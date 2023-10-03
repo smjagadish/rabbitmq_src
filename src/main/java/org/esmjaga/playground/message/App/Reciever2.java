@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class Reciever2 {
     //private ConnectionFactory factory;
     //private Connection connection;
     @Autowired
+    @Qualifier("localconn")
     Connection connection;
     @Autowired
     Sender snd;

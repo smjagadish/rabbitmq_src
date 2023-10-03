@@ -7,6 +7,7 @@ import com.rabbitmq.client.Connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class quorumSender {
     private final Logger logger = LoggerFactory.getLogger(quorumSender.class);
     private Channel channel;
     @Autowired
+    @Qualifier("localconn")
     Connection connection;
     quorumSender()
     {

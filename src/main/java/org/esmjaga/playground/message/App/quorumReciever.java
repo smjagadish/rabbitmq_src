@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 public class quorumReciever {
     @Autowired
+    @Qualifier("localconn")
     Connection connection;
     private Channel channel;
     quorumReciever()
